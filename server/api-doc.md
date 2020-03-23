@@ -95,10 +95,16 @@ Response:
 ```json
 [
   {
-    "name": "string",
     "cases": "integer",
-    "deaths": "integer",
-    "recovered": "integer"
+    "Country":{
+      "id": 89,
+      "name": "Afghanistan",
+      "deaths": 0,
+      "recovered": 1,
+      "cases": 20,
+      "createdAt": "2020-03-17T12:00:56.894Z",
+      "updatedAt": "2020-03-22T10:19:48.449Z"
+    }
   }
 ]
 ```
@@ -118,7 +124,7 @@ Request:
 
 ```json
 {
-  "report": "integer",
+  "cases": "integer",
   "CountryId": "integer"
 }
 ```
@@ -133,7 +139,7 @@ Request:
 {
   "report": {
     "id": "integer",
-    "report": "integer",
+    "cases": "integer",
     "UserId": "integer",
     "CountryId": "integer",
     "createdAt": "2020-03-17T12:00:56.894Z",

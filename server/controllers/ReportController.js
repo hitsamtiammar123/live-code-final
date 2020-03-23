@@ -5,7 +5,10 @@ class ReportController{
         let user=req.user;
         try{
             let userId=user.id;
-            let reports=await Report.findAll({where:{UserId:userId}})
+            let reports=await Report.findAll({
+                where:{UserId:userId},
+                attributes:[['report','cases']],
+                include:Country})
             res.status(200).json(reports)
         }catch(err){
             next(err)
@@ -17,8 +20,8 @@ class ReportController{
 
         try{
             let {report,CountryId}=req.body;
-            let reportObj=await Report.create({report,CountryId,UserId})
-            let country=await Country.findByPk(CountryId);
+            let reportObj=await Report.create({report,CountryId,UserId},{include:Country})
+            let country=await reportObj.getCountry();
             let cases=country.get('cases')
             country.set('cases',cases+report)
             await country.save()
@@ -43,6 +46,7 @@ class ReportController{
             countryObj.set('cases',country_cases-report_cases)
             await countryObj.save();
             await reportObj.destroy()
+            countryObj.Country=countryObj
             res.status(200).json({country:countryObj,report:'Successfully Deleted'})
         }catch(err){
             next(err)
