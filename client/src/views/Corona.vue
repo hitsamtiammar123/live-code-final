@@ -27,6 +27,7 @@ export default {
         logout(){
             localStorage.removeItem('token')
             this.$store.commit('SET_COUNTRIES',[])
+            this.$store.commit('SET_REPORTS',[])
             this.$router.push('/')
         }
     }

@@ -2,7 +2,7 @@
     <div>
         <b-row class="mt-4 mb-4">
             <b-col sm="12">
-                <b-form-input placeholder="Search Country"></b-form-input>
+                <b-form-input placeholder="Search Country" v-model="countrySearch" ></b-form-input>
             </b-col>
         </b-row>
         <b-row>
@@ -21,13 +21,22 @@ export default {
     components:{
         CountryCase
     },
+    data(){
+        return {
+            countrySearch:''
+        }
+    },
     computed:{
         countries(){
-            return this.$store.state.countries
-        }
+            var countries=this.$store.state.countries
+            return countries.filter((country)=>country.name.indexOf(this.countrySearch)!==-1)
+        },
     },
     created(){
         this.$store.dispatch('fetchCountries')
+    },
+    methods:{
+        
     }
 }
 </script>
